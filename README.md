@@ -47,24 +47,7 @@ See `CHANGELOG.md` for updates and more details.
 
 ## Setup
 
-Please install the necessary packages with (using a virtual environment is recommended, tested with python 3.11):
-```bash
-python -m venv env
-source env/bin/activate
-pip install -r requirements.txt
-```
-
-For evaluating on NVIDIA GPUs, please install `flash-attn` by referring to the [flash attention repo](https://github.com/Dao-AILab/flash-attention).
-
-Additionally, if you wish to use the API models, you will need to install the package corresponding to the API you wish to use
-```bash
-pip install openai # OpenAI API (GPT)
-pip install anthropic==0.42.0 # Anthropic API (Claude)
-pip install google-generativeai # Google API (Gemini)
-pip install vertexai==1.71.0 # Google API (Gemini)
-pip install together # Together API
-```
-You should also set the environmental variables accordingly so the API calls can be made correctly. To see the variable that you should set up, check out `model_utils.py` and the corresponding class (e.g., `GeminiModel`).
+The original recommendation was to set up a Python environment manually, but since there were some issues with the setup, I added toml that handles the installation automatically. Please refer to the [Running evaluation](#running-evaluation) section for details on how to launch evals in clariden.
 
 ## Data
 
