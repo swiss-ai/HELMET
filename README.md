@@ -84,29 +84,13 @@ The data also contains the key points extracted for evaluating summarization wit
 
 
 ## Running evaluation
+To run an evaluation in clariden, you'll just need to add the models to the scripts `scripts/launcher_cscs_short.sh` or `scripts/launcher_cscs_131k.sh` and launch as:
 
-To run the evaluation, simply use one of the config files in the `configs` directory, you may also overwrite any arguments in the config file or add new arguments simply through the command line (see `arguments.py`):
-```bash
-for task in recall rag rerank cite longqa summ icl; do
-  python eval.py --config configs/${task}.yaml \
-    --model_name_or_path {local model path or huggingface model name} \
-    --output_dir {output directory, defaults to output/{model_name}} \
-    --use_chat_template False # only if you are using non-instruction-tuned models, otherwise use the default.
-done
+```
+source scripts/launcher_cscs_short.sh # 8k,16k,32k,65k evaks
+source scripts/launcher_cscs_131k.sh # only 131k evals
 ```
 
-This will output the results file under the output directory in two files: `.json` contains all the data point details while `.json.score` only contain the aggregated metrics.
-
-For slurm users, you may find our slurm scripts useful:
-```bash
-# I recommend using these slurm scripts as they contain more details (including all the model names) and can be easily modified to fit your setup
-# you can also run them in your shell by replacing sbatch with bash, check out the file for more details
-sbatch scripts/run_eval_slurm.sh # 128k
-sbatch scripts/run_short_slurm.sh # 8k-64k
-
-# for the API models, note that API results may vary due to the randomness in the API calls
-bash scripts/run_api.sh 
-```
 ### Run on Intel Gaudi Accelerators
 If you want to enable the evaluation on vLLM with Intel Gaudi, you can use the following commands:
 ```bash
